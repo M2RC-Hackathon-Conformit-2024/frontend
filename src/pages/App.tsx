@@ -1,8 +1,11 @@
-import { useEffect } from "react";
-
+import { useEffect,useState } from "react";
+import { useParams } from "react-router-dom";
 import { sessionState, useChatSession } from "@chainlit/react-client";
 import { Playground } from "@/components/playground";
 import { useRecoilValue } from "recoil";
+
+import { getChat } from "@/api/chats";
+import { Chat } from "@/types";
 
 const userEnv = {};
 
@@ -10,6 +13,18 @@ const userEnv = {};
 function App() {
   const { connect } = useChatSession();
   const session = useRecoilValue(sessionState);
+  const [chat, setChat] = useState<Chat | null>(null);
+
+  const { chatId } = useParams<{ chatId : string }>();
+
+  if (chatId) {
+    getChat(parseInt(chatId, 10)).then((chat) => {
+      setChat(chat);
+    });
+  }
+
+
+
   useEffect(() => {
     if (session?.socket.connected) {
       return;
@@ -28,7 +43,17 @@ function App() {
 
   return (
     <>
-      <div>
+      <div className="w-full">
+      <h1>
+        {chatId}
+      </h1>
+        {/* {
+          chat && (
+            <div>
+              <h1>{chat.name}</h1>
+            </div>
+          )
+        } */}
         <Playground />
       </div>
     </>

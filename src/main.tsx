@@ -10,6 +10,7 @@ import App from "@/pages/App.tsx";
 import FrontRoot from "@/pages/FrontRoot";
 import Login from "@/pages/Login.tsx";
 import Register from "@/pages/Register.tsx";
+import Chats from "@/pages/Chats.tsx";
 
 const CHAINLIT_SERVER = "http://localhost:80/chainlit";
 const apiClient = new ChainlitAPI(CHAINLIT_SERVER, "webapp");
@@ -32,17 +33,19 @@ const router = createBrowserRouter([
         element: <App />
       },
       {
+        path: "chats",
+        element: <Chats />,
+        children: [
+          {
+            path: ":chatId",
+            element: <App/>
+          }
+        ]
+      },
+      {
         path: "register",
         element: <Register />
-      },
-      // {
-      //   path: "profile",
-      //   element: <Profile />
-      // },
-      // {
-      //   path: "settings",
-      //   element: <Settings />
-      // }
+      }
     ],
   },
 ]);

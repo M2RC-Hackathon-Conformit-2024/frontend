@@ -8,3 +8,8 @@ export interface UserRegisterData {
     password : string;
     passwordConf : string;
 }
+
+export interface Chat {
+    id : number;
+    name : string;
+}

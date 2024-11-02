@@ -9,6 +9,7 @@ import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom"
 import App from "@/pages/App.tsx";
 import FrontRoot from "@/pages/FrontRoot";
 import Login from "@/pages/Login.tsx";
+import Register from "@/pages/Register.tsx";
 
 const CHAINLIT_SERVER = "http://localhost:80/chainlit";
 const apiClient = new ChainlitAPI(CHAINLIT_SERVER, "webapp");
@@ -29,11 +30,11 @@ const router = createBrowserRouter([
       {
         path: "chat",
         element: <App />
-      }
-      // {
-      //   path: "register",
-      //   element: <Register />
-      // },
+      },
+      {
+        path: "register",
+        element: <Register />
+      },
       // {
       //   path: "profile",
       //   element: <Profile />

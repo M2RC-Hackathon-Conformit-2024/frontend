@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { RecoilRoot } from "recoil";
 import "@/index.css";
+import { TokenProvider } from "./TokenContext"; // Import TokenProvider
 import { ChainlitAPI, ChainlitContext } from "@chainlit/react-client";
 import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
 
@@ -14,6 +15,7 @@ import Register from "@/pages/Register.tsx";
 const CHAINLIT_SERVER = "http://localhost:80/chainlit";
 const apiClient = new ChainlitAPI(CHAINLIT_SERVER, "webapp");
 
+let token="";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -51,7 +53,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ChainlitContext.Provider value={apiClient}>
       <RecoilRoot>
-        <RouterProvider router={router} />
+        <TokenProvider initialToken={token}> {/* Fournit le token initial */}
+            <RouterProvider router={router} />
+        </TokenProvider>
       </RecoilRoot>
     </ChainlitContext.Provider>
   </React.StrictMode>
